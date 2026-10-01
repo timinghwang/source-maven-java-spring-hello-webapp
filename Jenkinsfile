@@ -51,11 +51,6 @@ pipeline {
       agent { label 'controller' }
       steps {
 	  sh '''
-            docker rm -f myweb || true
-            docker container run --detach \
-                --name myweb \
-                -p 80:8080 \
-                timinghwang/my-tomcat:latest
 	    ansiblePlaybook(playbook: 'myweb-playbook.yaml')
           '''
       }
