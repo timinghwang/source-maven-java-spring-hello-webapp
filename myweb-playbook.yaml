@@ -5,7 +5,7 @@
   - name: Create & Start Container
     docker_container:
       name: myweb
-      image: "<IMAGE>:{{ lookup('env','BUILD_NUMBER') }}"
+      image: "timinghwang/my-tomcat:{{ lookup('env','BUILD_NUMBER') }}"
       state: started
-      ports:
+      portsd:
       - "80:8080"
