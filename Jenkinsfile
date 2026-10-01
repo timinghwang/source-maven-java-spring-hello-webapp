@@ -34,7 +34,7 @@ pipeline {
     stage('Tag Container Image') {
       agent { label 'controller' }
       steps {
-        sh 'docker image tag my-tomcat timinghwang/my-tomcat:v1' // Tagging with build number
+        sh 'docker image tag my-tomcat timinghwang/my-tomcat:${BUILD_NUMBER}' // Tagging with build number
         sh 'docker image tag my-tomcat timinghwang/my-tomcat:latest' // Tagging with latest
       }
     }
@@ -42,7 +42,7 @@ pipeline {
       agent { label 'controller' }
       steps {
         withDockerRegistry(credentialsId: 'docker-registry-credential', url: 'https://index.docker.io/v1/') {
-          sh 'docker image push timinghwang/my-tomcat:v1' // Tagging with build number
+          sh 'docker image push timinghwang/my-tomcat:${BUILD_NUMBER}' // Tagging with build number
           sh 'docker image push timinghwang/my-tomcat:latest' // Tagging with latest
         }
       }
@@ -56,6 +56,7 @@ pipeline {
                 --name myweb \
                 -p 80:8080 \
                 timinghwang/my-tomcat:latest
+	    ansiblePlaybook(playbook: 'myweb-playbook.yaml')
           '''
       }
     }
