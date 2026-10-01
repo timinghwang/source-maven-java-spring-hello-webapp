@@ -7,5 +7,5 @@
       name: myweb
       image: "timinghwang/my-tomcat:{{ lookup('env','BUILD_NUMBER') }}"
       state: started
-      portsd:
+      ports:
       - "80:8080"
