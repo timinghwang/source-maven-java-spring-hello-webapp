@@ -50,9 +50,7 @@ pipeline {
     stage('Run Container') {
       agent { label 'controller' }
       steps {
-	  sh '''
 	    ansiblePlaybook(playbook: 'myweb-playbook.yaml')
-          '''
       }
     }
   }
