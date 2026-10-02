@@ -11,7 +11,25 @@ pipeline {
             command:
             - sleep
             args:
-            - infinity 
+            - infinity
+	  - name: buildah
+	    image: quay.io/buildah/stable:v1
+	    command:
+	    - sleep
+	    args:
+	    - infinity
+	    securityContext:
+	      privileged: true
+	    volumeMounts:
+	    - name: registry-credentials
+            mountPath: /root/.docker
+          volumes:
+  	  - name: registry-credentials
+    	    secret:
+      	      secretName: docker-hub-credential
+      	      items:
+        	- key: .dockerconfigjson
+          	  path: config.json 
       ''' 
     }
   }
